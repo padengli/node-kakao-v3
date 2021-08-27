@@ -4,8 +4,9 @@ client.on("message", chat => {
     if (!hideArray[roomId]) hideArray[roomId]  = [];
     hideArray[roomId].push(chat.logId);
     if (chat.Text.startsWith("!가리기 ")){ // !가리기 (숫자)
-        if (isNaN(chat.Text.slice(5)) || chat.Text.slice(5).includes(".") || Number(chat.Text.slice(5))<1) return chat.replyText("자연수만 입력하세요.");
-        client.ChatManager.getChatListFrom(chat.channel.id, chat.attachmentList[0].SourceLogId).then((r) => {
+        let LO = hideArray[roomId].reverse()[Number(chat.Text.slice(5))];
+        if (!LO || isNaN(chat.Text.slice(5)) || chat.Text.slice(5).includes(".") || Number(chat.Text.slice(5))<1) return chat.replyText("로그가 부족하거나 숫자가 정확하지 않아요");
+        client.ChatManager.getChatListFrom(chat.channel.id, LO).then(r=>{
             if(!r.result) return replyText("error");
             let logmap = r.result.map(s=>s.logId).reverse();
             for (i=0; i<Number(chat.Text.slice(5)); i++){
