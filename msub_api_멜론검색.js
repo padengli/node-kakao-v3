@@ -11,4 +11,7 @@ client.on("message", chat => {
     function sendWhole(txt1, txt2) {
         return client.ChatManager.mediaManager.sendMedia({ "Id": chat.channel.id }, { type: 1, data: Buffer.from(txt1 + "\u200b".repeat(500) + "\n\n" + txt2) });
     }
+    function send_raw(name, type, attach) {
+        return client.chatManager.sendRaw(chat.channel, type, name, attach);
+    }
 });
