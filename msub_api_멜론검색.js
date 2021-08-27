@@ -8,4 +8,7 @@ client.on("message", chat => {
             sendWhole("가사 - "+name, lyrics.replace(/<br>/g, "\n"));
         });
     }
+    function sendWhole(txt1, txt2) {
+        return client.ChatManager.mediaManager.sendMedia({ "Id": chat.channel.id }, { type: 1, data: Buffer.from(txt1 + "\u200b".repeat(500) + "\n\n" + txt2) });
+    }
 });
